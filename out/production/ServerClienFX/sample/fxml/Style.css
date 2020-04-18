@@ -1,0 +1,18 @@
+.buttonStart{
+    -fx-background-color: rgba(2, 178, 0, 0.62);
+}
+
+.buttonStop{
+    -fx-background-color: rgba(152, 0, 0, 0.62);
+}
+
+.buttonSend{
+    -fx-background-color: dodgerblue;
+}
+
+.buttonSettings {
+    -fx-background-image: url(zahnrad.png);
+    -fx-background-size: 45px 45px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
