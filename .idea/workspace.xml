@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/sample/clientSettingsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/data/iso639.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/clientSettingsSample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/META-INF/ServerClienFX.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ClientSample.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ClientSample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ListenToServerRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ListenToServerRunnable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/MenuSample.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/MenuSample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/RunnableServerListenToClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/RunnableServerListenToClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/RunnableWaitForClientsToJoin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/RunnableWaitForClientsToJoin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ServerSample.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ServerSample.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/fxml/ClientSample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/fxml/ClientSample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/fxml/New Text Document.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/fxml/ServerSample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/fxml/ServerSample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/ClientSample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ClientSample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/MenuSample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/MenuSample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/ClientSample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/ClientSample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/New Text Document.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/data/iso6391.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,6 +85,9 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
     <exe-path />
@@ -73,6 +96,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1ZFlVPRNyV8D7Xlf6CXNDgftRtm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -82,6 +108,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -92,7 +119,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Informatik/GeschichteApp/GeschichteApp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -204,6 +231,7 @@
       <workItem from="1586444382725" duration="599000" />
       <workItem from="1586775403895" duration="5240000" />
       <workItem from="1586875177390" duration="6267000" />
+      <workItem from="1587198179406" duration="9384000" />
     </task>
     <servers />
   </component>
@@ -212,6 +240,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
   <component name="WindowStateProjectService">
@@ -231,31 +260,31 @@
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
     <state x="1061" y="446" key="FileChooserDialogImpl/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587041455740" />
-    <state width="1279" height="1352" key="GridCell.Tab.0.bottom" timestamp="1587077311297">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1922" height="994" key="GridCell.Tab.0.bottom" timestamp="1587209862901">
+      <screen x="0" y="0" width="2560" height="1409" />
     </state>
-    <state width="1279" height="1352" key="GridCell.Tab.0.bottom/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586965928815" />
+    <state width="1922" height="994" key="GridCell.Tab.0.bottom/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587209862901" />
     <state width="839" height="1282" key="GridCell.Tab.0.bottom/-3840.703.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586272880373" />
     <state width="967" height="993" key="GridCell.Tab.0.bottom/-3840.709.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586015053562" />
     <state width="1279" height="1352" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1587077311297" />
-    <state width="1279" height="1352" key="GridCell.Tab.0.center" timestamp="1587077311296">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1922" height="994" key="GridCell.Tab.0.center" timestamp="1587209862901">
+      <screen x="0" y="0" width="2560" height="1409" />
     </state>
-    <state width="1279" height="1352" key="GridCell.Tab.0.center/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586965928814" />
+    <state width="1922" height="994" key="GridCell.Tab.0.center/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587209862901" />
     <state width="839" height="1282" key="GridCell.Tab.0.center/-3840.703.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586272880373" />
     <state width="967" height="993" key="GridCell.Tab.0.center/-3840.709.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586015053562" />
     <state width="1279" height="1352" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1587077311296" />
-    <state width="1279" height="1352" key="GridCell.Tab.0.left" timestamp="1587077311296">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1922" height="994" key="GridCell.Tab.0.left" timestamp="1587209862901">
+      <screen x="0" y="0" width="2560" height="1409" />
     </state>
-    <state width="1279" height="1352" key="GridCell.Tab.0.left/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586965928814" />
+    <state width="1922" height="994" key="GridCell.Tab.0.left/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587209862901" />
     <state width="839" height="1282" key="GridCell.Tab.0.left/-3840.703.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586272880373" />
     <state width="967" height="993" key="GridCell.Tab.0.left/-3840.709.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586015053562" />
     <state width="1279" height="1352" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1587077311296" />
-    <state width="1279" height="1352" key="GridCell.Tab.0.right" timestamp="1587077311297">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state width="1922" height="994" key="GridCell.Tab.0.right" timestamp="1587209862901">
+      <screen x="0" y="0" width="2560" height="1409" />
     </state>
-    <state width="1279" height="1352" key="GridCell.Tab.0.right/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586965928815" />
+    <state width="1922" height="994" key="GridCell.Tab.0.right/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587209862901" />
     <state width="839" height="1282" key="GridCell.Tab.0.right/-3840.703.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586272880373" />
     <state width="967" height="993" key="GridCell.Tab.0.right/-3840.709.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586015053562" />
     <state width="1279" height="1352" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1587077311297" />
@@ -296,17 +325,18 @@
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
     <state x="954" y="334" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586877976657" />
-    <state x="731" y="407" key="new project wizard" timestamp="1586352796060">
+    <state x="731" y="407" key="new project wizard" timestamp="1587203056285">
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
-    <state x="731" y="407" key="new project wizard/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586352796060" />
+    <state x="731" y="407" key="new project wizard/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587203056285" />
     <state x="988" y="333" key="refactoring.ChangeSignatureDialog" timestamp="1586360231569">
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
     <state x="988" y="333" key="refactoring.ChangeSignatureDialog/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586360231569" />
-    <state x="943" y="318" width="672" height="678" key="search.everywhere.popup" timestamp="1586263894521">
+    <state x="943" y="318" width="672" height="678" key="search.everywhere.popup" timestamp="1587202267307">
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
+    <state x="943" y="318" width="672" height="678" key="search.everywhere.popup/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587202267307" />
     <state x="943" y="318" width="672" height="678" key="search.everywhere.popup/-3840.703.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1586263894521" />
     <state x="943" y="318" width="672" height="678" key="search.everywhere.popup/-3840.709.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1585989160456" />
   </component>

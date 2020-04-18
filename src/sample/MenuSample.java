@@ -10,8 +10,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class MenuSample {
+    public static Stage serverStage;
     public void OpenServer(javafx.event.ActionEvent actionEvent) throws Exception {
-        Stage serverStage = new Stage();
+        serverStage = new Stage();
         System.out.println(serverStage.toString());
         Parent rootServer = FXMLLoader.load(getClass().getResource("fxml/ServerSample.fxml"));
         serverStage.setScene(new Scene(rootServer, 600, 400));
@@ -23,15 +24,16 @@ public class MenuSample {
         Main.ServerList.add(serverStage);
     }
 
+    public static Stage clientStage;
     public void openClient(ActionEvent actionEvent) throws Exception {
-        Stage serverStage = new Stage();
+        clientStage = new Stage();
         Parent rootServer = FXMLLoader.load(getClass().getResource("fxml/ClientSample.fxml"));
-        serverStage.setScene(new Scene(rootServer, 600, 400));
-        serverStage.setTitle("Client");
-        serverStage.setResizable(false);
+        clientStage.setScene(new Scene(rootServer, 600, 400));
+        clientStage.setTitle("Client");
+        clientStage.setResizable(false);
         rootServer.requestFocus();
-        serverStage.show();
+        clientStage.show();
 
-        Main.ServerList.add(serverStage);
+        Main.ClientList.add(clientStage);
     }
 }

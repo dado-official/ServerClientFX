@@ -64,7 +64,7 @@
          <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
             <Button styleClass="buttonSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0"/>
+                    minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" onAction="#settingsHandler"/>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

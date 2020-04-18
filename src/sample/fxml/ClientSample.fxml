@@ -9,7 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@Style.css" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ClientSample">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@Style.css" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ClientSample">
     <top>
         <MenuBar prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         </MenuBar>
@@ -17,17 +19,20 @@
     <left>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" onAction="#connectClickedHandler" prefHeight="50.0" prefWidth="100.0" styleClass="buttonStart"  text="Verbinden">
+                <Button mnemonicParsing="false" onAction="#connectClickedHandler" prefHeight="50.0" prefWidth="100.0"
+                        styleClass="buttonStart"  text="Verbinden" fx:id="connechtButton">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>
                 </Button>
-            <Button mnemonicParsing="false" onAction="#dataSendClickedHandler" prefHeight="50.0" prefWidth="100.0" styleClass="buttonSend" text="Datei senden">
+            <Button mnemonicParsing="false" onAction="#dataSendClickedHandler" prefHeight="50.0" prefWidth="100.0"
+                    styleClass="buttonSend" text="Datei senden" fx:id="sendFile">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="buttonStop" text="Trennen">
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="buttonStop" text="Trennen"
+                fx:id="disconnectButton">
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>
@@ -38,7 +43,7 @@
     <bottom>
         <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="send" prefHeight="35.0" prefWidth="535.0" promptText="Nachricht eingeben" />
+                <TextField fx:id="send" prefHeight="35.0" prefWidth="535.0" promptText="Nachricht eingeben"/>
                 <Button mnemonicParsing="false" onAction="#sendClickedHandler" prefHeight="35.0" prefWidth="65.0" styleClass="buttonSend" stylesheets="@Style.css" text="Send" />
             </children>
          <padding>
@@ -50,11 +55,6 @@
       <VBox prefHeight="200.0" prefWidth="190.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="benutzer" promptText="Benutzername">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="sprache" promptText="gewünschte Sprache (ISO 639-1 code)">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

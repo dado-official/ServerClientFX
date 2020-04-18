@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -34,18 +35,52 @@ public class ClientSample {
     public TextField benutzer;
     public TextField address;
     public TextField sprache;
+    public Button connechtButton;
+    public Button sendFile;
+    public Button disconnectButton;
 
-    public void initialize(){
+
+    public void setPort(TextField port) {
+        this.port = port;
+    }
+
+    public void setBenutzer(TextField benutzer) {
+        this.benutzer = benutzer;
+    }
+
+    public void buttonSprache() throws IOException {
+        connechtButton.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Connect"));
+        sendFile.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "send File"));
+        disconnectButton.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Disconnect"));
+        send.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Nachricht eingeben"));
+        benutzer.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Benutzername"));
+        if (clientSettingsController.benutzername != null) {
+            benutzer.setText(clientSettingsController.benutzername);
+        }
+        address.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "IP-Address"));
+        if (clientSettingsController.ipAdress != null) {
+            address.setText(clientSettingsController.ipAdress);
+        }
+        if (clientSettingsController.portInt != 0) {
+            address.setText(String.valueOf(clientSettingsController.portInt));
+        }
+    }
+
+    public void initialize() throws IOException {
         textArea = new TextArea();
         borderPane.setCenter(textArea);
 
         textArea.setPrefHeight(borderPane.getCenter().getLayoutY());
         textArea.setPrefWidth(borderPane.getCenter().getLayoutX());
         textArea.setEditable(false);
+
+        if(clientSettingsController.spracheBeienFieldStr != null){
+            buttonSprache();
+        }
     }
 
 
-    public void connectClickedHandler(ActionEvent actionEvent) {
+    public void connectClickedHandler(ActionEvent actionEvent) throws IOException {
         try{
             s=new Socket(address.getText(),Integer.parseInt(port.getText()));
 
@@ -53,7 +88,9 @@ public class ClientSample {
 
         }catch(Exception e){
             final JPanel panel = new JPanel();
-            JOptionPane.showMessageDialog(panel, "Adresse oder Port ungültig", "Warning",
+            JOptionPane.showMessageDialog(panel, GoogleTranslate.translate(
+                    clientSettingsController.spracheBeienFieldStr, "Adresse oder Port ungültig") ,
+                    GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Achtung"),
                     JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -85,7 +122,8 @@ public class ClientSample {
 
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
         writeMessage(s, "DOWNLOAD_FILE");
-        Path pfad = Paths.get(JOptionPane.showInputDialog("Pfad eingeben:"));
+        Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
+                (clientSettingsController.spracheBeienFieldStr,"Pfad eingeben:")));
         Path fileName = pfad.getFileName();
 
         writeMessage(s, String.valueOf(fileName));
@@ -102,22 +140,25 @@ public class ClientSample {
             reader.close();
         }
         catch (Exception e) {
-            textArea.appendText("Exception beim lesen: " + pfad);
+            String str = GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr,
+                    "Exception beim lesen: ");
+            textArea.appendText(str + pfad);
             e.printStackTrace();
         }
     }
 
 
-    public void settingsHandler(ActionEvent actionEvent) {
-        Parent root;
-        Scene settingsscene = new Scene(root);
-        
-               Parent root=FXMLLoader.load(getClass().getResource("/sample/fxml/samplemenu.fxml"));
-                       Scene scene=new Scene(root, 800, 500);
-    }                  scene.getStylesheets().add(getClass().getResource("/sample/fxml/Pingpong.css").toExternalForm());
-}                      root.requestFocus();
-                       Main.menuStage2.setScene(scene);
-                       Main.menuStage2.show();
+    public void settingsHandler(ActionEvent actionEvent) throws IOException {
+
+        Parent root=FXMLLoader.load(getClass().getResource("/sample/fxml/clientSettingsSample.fxml"));
+        Scene scene=new Scene(root, 800, 500);
+        scene.getStylesheets().add(getClass().getResource("/sample/fxml/Style.css").toExternalForm());
+        root.requestFocus();
+        MenuSample.clientStage.setScene(scene);
+        MenuSample.clientStage.show();
+
+    }
+}
 
 
 //Auf Nchricht vom Server warten
@@ -146,7 +187,6 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                         try {
                             File file = new File(String.valueOf(pfad));
                             if (file.createNewFile()) {
-                                System.out.println("File created: " + file.getName());
                                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                                 for (String s: line) {
                                     writer.write(s);
@@ -154,7 +194,6 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                                 }
                                 writer.close();
                             } else {
-                                System.out.println("File already exists.");
                                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                                 for (String s: line) {
                                     writer.write(s);
@@ -163,25 +202,13 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                                 writer.close();
                             }
                         } catch (IOException e) {
-                            System.out.println("An error occurred.");
                             e.printStackTrace();
                         }
                         break;
 
                     default:
-                        /*
-                        System.out.println(read);
-                        String sp = "en";
-                        String sp2 = sprache.getText();
-                        System.out.println(" String = " + sp + " " + Arrays.toString(sp.getBytes()));
-                        System.out.println(" Testfe = " + sp2 + " " + Arrays.toString(sp2.getBytes()));
-                        textArea.appendText("\n".concat(GoogleTranslate.translate(sp,read))); //wirft NullPointerEx.
-
-                         */
-                        textArea.appendText("\n".concat(GoogleTranslate.translate("en",read)));
+                        textArea.appendText("\n".concat(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr,read)));
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
