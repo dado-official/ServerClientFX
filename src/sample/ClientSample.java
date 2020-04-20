@@ -15,6 +15,7 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,27 +27,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ClientSample {
-    public static TextArea textArea;
-    public BorderPane borderPane;
 
-    public static Socket s;
+    public static ArrayList<Socket> clientSockets = new ArrayList<>();
+    public static ArrayList<TextArea> clientTextArea = new ArrayList<>();
+    public int socketInt;
+    public int areaInt;
+    public BorderPane borderPane;
     public TextField port;
     public TextField send;
     public TextField benutzer;
     public TextField address;
-    public TextField sprache;
     public Button connechtButton;
     public Button sendFile;
     public Button disconnectButton;
+    public Button sendButton;
 
-
-    public void setPort(TextField port) {
-        this.port = port;
-    }
-
-    public void setBenutzer(TextField benutzer) {
-        this.benutzer = benutzer;
-    }
 
     public void buttonSprache() throws IOException {
         connechtButton.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Connect"));
@@ -54,6 +49,7 @@ public class ClientSample {
         disconnectButton.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Disconnect"));
         send.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Nachricht eingeben"));
         benutzer.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Benutzername"));
+        sendButton.setText(GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "senden"));
         if (clientSettingsController.benutzername != null) {
             benutzer.setText(clientSettingsController.benutzername);
         }
@@ -62,35 +58,36 @@ public class ClientSample {
             address.setText(clientSettingsController.ipAdress);
         }
         if (clientSettingsController.portInt != 0) {
-            address.setText(String.valueOf(clientSettingsController.portInt));
+            port.setText(String.valueOf(clientSettingsController.portInt));
         }
     }
 
     public void initialize() throws IOException {
-        textArea = new TextArea();
-        borderPane.setCenter(textArea);
+        clientTextArea.add(new TextArea());
+        areaInt = clientTextArea.size()-1;
+        borderPane.setCenter(clientTextArea.get(areaInt));
 
-        textArea.setPrefHeight(borderPane.getCenter().getLayoutY());
-        textArea.setPrefWidth(borderPane.getCenter().getLayoutX());
-        textArea.setEditable(false);
+        clientTextArea.get(areaInt).setPrefHeight(borderPane.getCenter().getLayoutY());
+        clientTextArea.get(areaInt).setPrefWidth(borderPane.getCenter().getLayoutX());
+        clientTextArea.get(areaInt).setEditable(false);
 
         if(clientSettingsController.spracheBeienFieldStr != null){
             buttonSprache();
         }
     }
 
-
     public void connectClickedHandler(ActionEvent actionEvent) throws IOException {
         try{
-            s=new Socket(address.getText(),Integer.parseInt(port.getText()));
-
+            clientSockets.add(new Socket(address.getText(),Integer.parseInt(port.getText())));
+            socketInt = clientSockets.size()-1;
             ListenToServerRunnable.main(null);
 
         }catch(Exception e){
             final JPanel panel = new JPanel();
-            JOptionPane.showMessageDialog(panel, GoogleTranslate.translate(
-                    clientSettingsController.spracheBeienFieldStr, "Adresse oder Port ungültig") ,
-                    GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Achtung"),
+            String str = GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "Port oder IP ungültig");
+            str.replace(GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "Port"), "Port");
+            JOptionPane.showMessageDialog(panel, str,
+                    GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "Warning"),
                     JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -109,10 +106,10 @@ public class ClientSample {
         try{
             if(benutzer.getText().equals("")){
                 String str = "Client: ".concat(send.getText());
-                writeMessage(s, str);
+                writeMessage(clientSockets.get(socketInt), str);
             } else {
                 String str = benutzer.getText().concat(": ".concat(send.getText()));
-                writeMessage(s, str);
+                writeMessage(clientSockets.get(socketInt), str);
             }
             send.setText("");
         }catch (Exception e){
@@ -121,12 +118,12 @@ public class ClientSample {
     }
 
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
-        writeMessage(s, "DOWNLOAD_FILE");
+        writeMessage(clientSockets.get(socketInt), "DOWNLOAD_FILE");
         Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
                 (clientSettingsController.spracheBeienFieldStr,"Pfad eingeben:")));
         Path fileName = pfad.getFileName();
 
-        writeMessage(s, String.valueOf(fileName));
+        writeMessage(clientSockets.get(socketInt), String.valueOf(fileName));
 
         List<String> records = new ArrayList<String>();
         try {
@@ -136,20 +133,19 @@ public class ClientSample {
                 records.add(line);
             }
             String message = String.join("#/noeiariga/" , records);
-            writeMessage(s, message);
+            writeMessage(clientSockets.get(socketInt), message);
             reader.close();
         }
         catch (Exception e) {
             String str = GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr,
                     "Exception beim lesen: ");
-            textArea.appendText(str + pfad);
+            clientTextArea.get(areaInt).appendText(str + pfad);
             e.printStackTrace();
         }
     }
 
 
     public void settingsHandler(ActionEvent actionEvent) throws IOException {
-
         Parent root=FXMLLoader.load(getClass().getResource("/sample/fxml/clientSettingsSample.fxml"));
         Scene scene=new Scene(root, 800, 500);
         scene.getStylesheets().add(getClass().getResource("/sample/fxml/Style.css").toExternalForm());
@@ -172,16 +168,19 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
 
     @Override
     public void run() {
+        Socket socket = clientSockets.get(clientSockets.size()-1);
+        TextArea textArea = clientTextArea.get(clientTextArea.size()-1);
         while(true){
             try {
-                String read = readMessage(s);
+                String read = readMessage(socket);
+                System.out.println(socket + " bekommen: " + read);
                 switch (read){
                     case "DOWNLOAD_FILE":
 
-                        Path fileName = Paths.get(readMessage(s));
+                        Path fileName = Paths.get(readMessage(socket));
                         Path pfad = Paths.get("C:\\Users\\Daniel Nagler\\Google Drive\\TFO 4BT\\Systeme_Netze\\Server\\Client\\ServerClienFX\\src\\sample\\data\\empfangeneDateien", String.valueOf(fileName));
                         System.out.println(pfad);
-                        String str = readMessage(s);
+                        String str = readMessage(socket);
                         String[] line = str.split("#/noeiariga/");
 
                         try {
@@ -207,6 +206,7 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                         break;
 
                     default:
+                        System.out.println("ausgabe: " + socket);
                         textArea.appendText("\n".concat(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr,read)));
                 }
             } catch (Exception e) {

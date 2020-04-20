@@ -9,24 +9,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ServerSample">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ServerSample">
    <top>
       <MenuBar prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
       </MenuBar>
    </top>
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <Button mnemonicParsing="false" onAction="#startClickedHandler" prefHeight="50.0" prefWidth="100.0" styleClass="buttonStart" text="Start">
+         <Button mnemonicParsing="false" onAction="#startClickedHandler" prefHeight="50.0" prefWidth="100.0"
+                 styleClass="buttonStart" text="Start" fx:id="startButtonClicked">
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Datei senden" styleClass="buttonSend" onAction="#dataSendClickedHandler">
+         <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Datei senden" styleClass="buttonSend"
+                 onAction="#dataSendClickedHandler" fx:id="sendFile">
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
          </Button>
-         <Button mnemonicParsing="false" onAction="#stopClickedHandler" prefHeight="50.0" prefWidth="100.0" styleClass="buttonStop" text="Stop">
+         <Button mnemonicParsing="false" onAction="#stopClickedHandler" prefHeight="50.0" prefWidth="100.0"
+                 styleClass="buttonStop" text="Stop" fx:id="stopButton">
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
@@ -36,16 +41,12 @@
    <bottom>
       <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <TextField fx:id="send" prefHeight="35.0" prefWidth="535.0" promptText="Nachricht eingeben" />
-         <Button mnemonicParsing="false" onAction="#sendClickedHandler" prefHeight="35.0" prefWidth="65.0" styleClass="buttonSend" stylesheets="@Style.css" text="Send" />
+         <Button mnemonicParsing="false" onAction="#sendClickedHandler" prefHeight="35.0" prefWidth="65.0"
+                 styleClass="buttonSend" stylesheets="@Style.css" text="Send" fx:id="sendButton" />
       </HBox>
    </bottom>
    <right>
       <VBox prefHeight="200.0" prefWidth="190.0" BorderPane.alignment="CENTER">
-         <TextField fx:id="sprache" promptText="gewünschte Sprache (ISO 639-1 code)">
-            <VBox.margin>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </VBox.margin>
-         </TextField>
          <TextField fx:id="port" promptText="Port">
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -64,7 +65,8 @@
          <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
             <Button styleClass="buttonSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" onAction="#settingsHandler"/>
+                    minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0"
+                    onAction="#settingsHandler"/>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

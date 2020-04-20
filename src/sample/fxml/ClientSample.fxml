@@ -44,7 +44,8 @@
         <HBox prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <TextField fx:id="send" prefHeight="35.0" prefWidth="535.0" promptText="Nachricht eingeben"/>
-                <Button mnemonicParsing="false" onAction="#sendClickedHandler" prefHeight="35.0" prefWidth="65.0" styleClass="buttonSend" stylesheets="@Style.css" text="Send" />
+                <Button mnemonicParsing="false" onAction="#sendClickedHandler" prefHeight="35.0" prefWidth="65.0"
+                        styleClass="buttonSend" stylesheets="@Style.css" text="Send" fx:id="sendButton"/>
             </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
