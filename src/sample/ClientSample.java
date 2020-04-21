@@ -8,25 +8,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ClientSample {
+public class ClientSample extends clientSettingsController {
 
     public static ArrayList<Socket> clientSockets = new ArrayList<>();
     public static ArrayList<TextArea> clientTextArea = new ArrayList<>();
@@ -44,21 +37,21 @@ public class ClientSample {
 
 
     public void buttonSprache() throws IOException {
-        connechtButton.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Connect"));
-        sendFile.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "send File"));
-        disconnectButton.setText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Disconnect"));
-        send.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Nachricht eingeben"));
-        benutzer.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "Benutzername"));
-        sendButton.setText(GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "senden"));
-        if (clientSettingsController.benutzername != null) {
-            benutzer.setText(clientSettingsController.benutzername);
+        connechtButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Connect"));
+        sendFile.setText(GoogleTranslate.translate(spracheBeienFieldStr, "send File"));
+        disconnectButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Disconnect"));
+        send.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "Nachricht eingeben"));
+        benutzer.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "Benutzername"));
+        sendButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "senden"));
+        if (benutzername != null) {
+            benutzer.setText(benutzername);
         }
-        address.setPromptText(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr, "IP-Address"));
-        if (clientSettingsController.ipAdress != null) {
-            address.setText(clientSettingsController.ipAdress);
+        address.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "IP-Address"));
+        if (ipAdress != null) {
+            address.setText(ipAdress);
         }
-        if (clientSettingsController.portInt != 0) {
-            port.setText(String.valueOf(clientSettingsController.portInt));
+        if (portInt != 0) {
+            port.setText(String.valueOf(portInt));
         }
     }
 
@@ -71,7 +64,7 @@ public class ClientSample {
         clientTextArea.get(areaInt).setPrefWidth(borderPane.getCenter().getLayoutX());
         clientTextArea.get(areaInt).setEditable(false);
 
-        if(clientSettingsController.spracheBeienFieldStr != null){
+        if(spracheBeienFieldStr != null){
             buttonSprache();
         }
     }
@@ -84,10 +77,10 @@ public class ClientSample {
 
         }catch(Exception e){
             final JPanel panel = new JPanel();
-            String str = GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "Port oder IP ungültig");
-            str.replace(GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "Port"), "Port");
+            String str = GoogleTranslate.translate(spracheBeienFieldStr, "Port oder IP ungültig");
+            str.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Port"), "Port");
             JOptionPane.showMessageDialog(panel, str,
-                    GoogleTranslate.translate(serverSettingsController.spracheBeienFieldStr, "Warning"),
+                    GoogleTranslate.translate(spracheBeienFieldStr, "Warning"),
                     JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -107,9 +100,11 @@ public class ClientSample {
             if(benutzer.getText().equals("")){
                 String str = "Client: ".concat(send.getText());
                 writeMessage(clientSockets.get(socketInt), str);
+                System.out.println("WriteClient");
             } else {
                 String str = benutzer.getText().concat(": ".concat(send.getText()));
                 writeMessage(clientSockets.get(socketInt), str);
+                System.out.println("WriteName");
             }
             send.setText("");
         }catch (Exception e){
@@ -120,7 +115,7 @@ public class ClientSample {
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
         writeMessage(clientSockets.get(socketInt), "DOWNLOAD_FILE");
         Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
-                (clientSettingsController.spracheBeienFieldStr,"Pfad eingeben:")));
+                (spracheBeienFieldStr,"Pfad eingeben:")));
         Path fileName = pfad.getFileName();
 
         writeMessage(clientSockets.get(socketInt), String.valueOf(fileName));
@@ -137,7 +132,7 @@ public class ClientSample {
             reader.close();
         }
         catch (Exception e) {
-            String str = GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr,
+            String str = GoogleTranslate.translate(spracheBeienFieldStr,
                     "Exception beim lesen: ");
             clientTextArea.get(areaInt).appendText(str + pfad);
             e.printStackTrace();
@@ -206,8 +201,13 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                         break;
 
                     default:
-                        System.out.println("ausgabe: " + socket);
-                        textArea.appendText("\n".concat(GoogleTranslate.translate(clientSettingsController.spracheBeienFieldStr,read)));
+                        if(read.contains(":")){
+                            String[] tmpString = read.split(":");
+                            textArea.appendText("\n".concat(tmpString[0]));
+                            textArea.appendText(": ".concat(GoogleTranslate.translate(spracheNachFieldStr, tmpString[1])));
+                        } else {
+                            textArea.appendText("\n".concat(GoogleTranslate.translate(spracheNachFieldStr, read)));
+                        }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

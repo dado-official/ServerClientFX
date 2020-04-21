@@ -11,10 +11,10 @@ import java.io.*;
 
 public class serverSettingsController {
 
-    public static String spracheBeienFieldStr;
-    public static String spracheNachFieldStr;
-    public static int anzahlClientsInt;
-    public static int portInt;
+    public String spracheBeienFieldStr;
+    public String spracheNachFieldStr;
+    public int anzahlClientsInt;
+    public int portInt;
 
     public TextField portField;
     public TextField spracheBedienFeld;

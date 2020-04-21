@@ -11,11 +11,11 @@ import java.io.*;
 
 public class clientSettingsController {
 
-    public static String spracheBeienFieldStr;
-    public static String spracheNachFieldStr;
-    public static String benutzername;
-    public static String ipAdress;
-    public static int portInt;
+    public String spracheBeienFieldStr;
+    public String spracheNachFieldStr;
+    public String benutzername;
+    public String ipAdress;
+    public int portInt;
 
     public TextField benutzernameField;
     public TextField ipAdresseField;
@@ -23,17 +23,18 @@ public class clientSettingsController {
     public TextField spracheBedienFeld;
     public TextField spracheNachFeld;
 
-    public void showHelpClicked(ActionEvent actionEvent) {
+    public void showHelpClicked(ActionEvent actionEvent) throws IOException {
         final JPanel panel = new JPanel();
-        JOptionPane.showMessageDialog(panel, "1) Benutzername: Der Benutzername kann auch auf der Startseite " +
-                        "eingegeben werden, da wird es aber nach jeder Verbindung gelöscht. " +
-                        "Wenn Sie es in den Einstellungen festlegen, wird es für alle nächsten Verbindungen gespeichert." +
-                        "\n2) IP-Adresse: Bei der IP-Adresse gilt das Gleiche wie beim Benutzername." +
-                        "\n3) Port: Bei der Porteingabe gilt das Gleiche wie bei der IP-Adresseneingabe." +
-                        "\n4) Sprache der Bedienelemente: In diesem Feld kann man die gewünschte Sprache der Bedienelemente " +
-                        "eingeben. Die Sprache sollte als ISO-639-1 Code angegeben werden (die Codes kann man auf " +
-                        "https://de.wikipedia.org/wiki/Liste_der_ISO-639-1-Codes) finden",
-                "Hilfe", JOptionPane.INFORMATION_MESSAGE);
+        String str = "1) Benutzername: Der Benutzername kann auch auf der Startseite " +
+        "eingegeben werden, da wird es aber nach jeder Verbindung gelöscht. " +
+                "Wenn Sie es in den Einstellungen festlegen, wird es für alle nächsten Verbindungen gespeichert." +
+                "\n2) IP-Adresse: Bei der IP-Adresse gilt das Gleiche wie beim Benutzername." +
+                "\n3) Port: Bei der Porteingabe gilt das Gleiche wie bei der IP-Adresseneingabe." +
+                "\n4) Sprache der Bedienelemente: In diesem Feld kann man die gewünschte Sprache der Bedienelemente " +
+                "eingeben. Die Sprache sollte als ISO-639-1 Code angegeben werden (die Codes kann man auf " +
+                "https://de.wikipedia.org/wiki/Liste_der_ISO-639-1-Codes) finden";
+
+        JOptionPane.showMessageDialog(panel, str, GoogleTranslate.translate(spracheBeienFieldStr, "Hilfe"), JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void einstellungenSpeichernClicked(ActionEvent actionEvent) throws IOException {
