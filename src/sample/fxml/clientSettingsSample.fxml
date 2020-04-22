@@ -17,19 +17,9 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Hilfe" fx:id="help">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Hilfe">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Übersicht anzeigen" onAction="#showHelpClicked" />
+              <MenuItem fx:id="uebersichtAnzeigen" mnemonicParsing="false" text="Übersicht anzeigen" onAction="#showHelpClicked" />
             </items>
           </Menu>
         </menus>
@@ -38,13 +28,13 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Benutzername:" />
+            <Label fx:id="benutzerna" text="Benutzername:" />
             <TextField promptText="Max Mustermann" fx:id="benutzernameField">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="IP-Adresse:" />
+            <Label text="IP-Adresse:" fx:id="ip" />
             <TextField promptText="localhost" fx:id="ipAdresseField">
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -56,13 +46,13 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Sprache der Bedienelemente (bitte als ISO 639-1 code angeben ):" />
+            <Label fx:id="spracheBe" text="Sprache der Bedienelemente (bitte als ISO 639-1 Code angeben ):" />
             <TextField promptText="Sprache" text="de" fx:id="spracheBedienFeld">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Sprache der Nachrichten (bitte als ISO 639-1 code angeben *):" />
+            <Label fx:id="spracheNa" text="Sprache der Nachrichten (bitte als ISO 639-1 code angeben *):" />
             <TextField promptText="Sprache" text="null" fx:id="spracheNachFeld">
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -72,7 +62,7 @@
                <children>
                   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
                           mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Speichern"
-                          onAction="#einstellungenSpeichernClicked"/>
+                          onAction="#einstellungenSpeichernClicked" fx:id="save"/>
                   <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0"
                           prefWidth="50.0" text="↩" onAction="#zuruckClicked">
                      <font>
@@ -88,7 +78,7 @@
       </VBox>
    </center>
    <bottom>
-      <Label text="*Falls die Nachrichten nicht übersetzt werden sollen, bitte &quot;null&quot; im TextFeld eingeben." BorderPane.alignment="CENTER">
+      <Label fx:id="infoUnten" text="*Falls die Nachrichten nicht übersetzt werden sollen, bitte &quot;null&quot; im TextFeld eingeben." BorderPane.alignment="CENTER">
          <font>
             <Font size="10.0" />
          </font>

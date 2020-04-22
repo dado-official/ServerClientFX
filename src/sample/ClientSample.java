@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import javax.swing.*;
@@ -18,13 +19,21 @@ import java.util.List;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
-public class ClientSample extends clientSettingsController {
+public class ClientSample{
 
     public static ArrayList<Socket> clientSockets = new ArrayList<>();
     public static ArrayList<TextArea> clientTextArea = new ArrayList<>();
+
+
+    public String benuUeber;
+
     public int socketInt;
     public int areaInt;
+    public String bedienSprache = "en";
+    public String nachSprache;
+
     public BorderPane borderPane;
     public TextField port;
     public TextField send;
@@ -35,27 +44,59 @@ public class ClientSample extends clientSettingsController {
     public Button disconnectButton;
     public Button sendButton;
 
+    public File[] listOfFiles;
+
+
 
     public void buttonSprache() throws IOException {
-        connechtButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Connect"));
-        sendFile.setText(GoogleTranslate.translate(spracheBeienFieldStr, "send File"));
-        disconnectButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Disconnect"));
-        send.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "Nachricht eingeben"));
-        benutzer.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "Benutzername"));
-        sendButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "senden"));
-        if (benutzername != null) {
-            benutzer.setText(benutzername);
-        }
-        address.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "IP-Address"));
-        if (ipAdress != null) {
-            address.setText(ipAdress);
-        }
-        if (portInt != 0) {
-            port.setText(String.valueOf(portInt));
-        }
+        System.out.println(bedienSprache);
+        connechtButton.setText(GoogleTranslate.translate(bedienSprache, "Connect"));
+        sendFile.setText(GoogleTranslate.translate(bedienSprache, "send File"));
+        disconnectButton.setText(GoogleTranslate.translate(bedienSprache, "Disconnect"));
+        send.setPromptText(GoogleTranslate.translate(bedienSprache, "Nachricht eingeben"));
+        benutzer.setPromptText(GoogleTranslate.translate(bedienSprache, "Benutzername"));
+        sendButton.setText(GoogleTranslate.translate(bedienSprache, "senden"));
+        address.setPromptText(GoogleTranslate.translate(bedienSprache, "IP-Address"));
     }
 
+
+
     public void initialize() throws IOException {
+
+        benuUeber = MenuSample.benuUebergabe;
+        MenuSample.benuUebergabe = null;
+        System.out.println("init: " + benuUeber);
+
+        if (benuUeber != null){
+            System.out.println(benuUeber);
+            File log = new File("src/sample/data/ClientSettings/" + benuUeber + "Settings.txt");
+            BufferedReader br = new BufferedReader(new FileReader(log));
+            String[] lines = new String[5];
+            String[] data = new String[5];
+            for (int i = 0; i < 5; i++) {
+                lines[i] = br.readLine();
+                String[] tmpdata = lines[i].split(":");
+                data[i] = tmpdata[1];
+            }
+            br.close();
+            benutzer.setText(data[0]);
+            address.setText(data[1]);
+            port.setText(data[2]);
+            bedienSprache = data[3];
+            nachSprache = data[4];
+        } else {
+            File folder = new File("src/sample/data/ClientSettings");
+            listOfFiles = folder.listFiles();
+
+            for (int i = 0; i < Objects.requireNonNull(listOfFiles).length; i++) {
+                if (listOfFiles[i].isFile()) {
+                    System.out.println("File " + listOfFiles[i].getName());
+                } else if (listOfFiles[i].isDirectory()) {
+                    System.out.println("Directory " + listOfFiles[i].getName());
+                }
+            }
+        }
+
         clientTextArea.add(new TextArea());
         areaInt = clientTextArea.size()-1;
         borderPane.setCenter(clientTextArea.get(areaInt));
@@ -64,9 +105,7 @@ public class ClientSample extends clientSettingsController {
         clientTextArea.get(areaInt).setPrefWidth(borderPane.getCenter().getLayoutX());
         clientTextArea.get(areaInt).setEditable(false);
 
-        if(spracheBeienFieldStr != null){
-            buttonSprache();
-        }
+        buttonSprache();
     }
 
     public void connectClickedHandler(ActionEvent actionEvent) throws IOException {
@@ -77,10 +116,10 @@ public class ClientSample extends clientSettingsController {
 
         }catch(Exception e){
             final JPanel panel = new JPanel();
-            String str = GoogleTranslate.translate(spracheBeienFieldStr, "Port oder IP ungültig");
-            str.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Port"), "Port");
+            String str = GoogleTranslate.translate(bedienSprache, "Port oder IP ungültig");
+            str.replace(GoogleTranslate.translate(bedienSprache, "Port"), "Port");
             JOptionPane.showMessageDialog(panel, str,
-                    GoogleTranslate.translate(spracheBeienFieldStr, "Warning"),
+                    GoogleTranslate.translate(bedienSprache, "Warning"),
                     JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -115,7 +154,7 @@ public class ClientSample extends clientSettingsController {
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
         writeMessage(clientSockets.get(socketInt), "DOWNLOAD_FILE");
         Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
-                (spracheBeienFieldStr,"Pfad eingeben:")));
+                (bedienSprache,"Pfad eingeben:")));
         Path fileName = pfad.getFileName();
 
         writeMessage(clientSockets.get(socketInt), String.valueOf(fileName));
@@ -132,7 +171,7 @@ public class ClientSample extends clientSettingsController {
             reader.close();
         }
         catch (Exception e) {
-            String str = GoogleTranslate.translate(spracheBeienFieldStr,
+            String str = GoogleTranslate.translate(bedienSprache,
                     "Exception beim lesen: ");
             clientTextArea.get(areaInt).appendText(str + pfad);
             e.printStackTrace();
@@ -148,6 +187,29 @@ public class ClientSample extends clientSettingsController {
         MenuSample.clientStage.setScene(scene);
         MenuSample.clientStage.show();
 
+    }
+
+    public void checkBenutzer(KeyEvent keyEvent) throws IOException {
+        for (File f: listOfFiles) {
+            if(f.getName().contains(benutzer.getText()+"Settings")){
+                File log = new File("src/sample/data/ClientSettings/" + benutzer.getText() + "Settings.txt");
+                BufferedReader br = new BufferedReader(new FileReader(log));
+                String[] lines = new String[5];
+                String[] data = new String[5];
+                for (int i = 0; i < 5; i++) {
+                    lines[i] = br.readLine();
+                    String[] tmpdata = lines[i].split(":");
+                    data[i] = tmpdata[1];
+                }
+                br.close();
+                benutzer.setText(data[0]);
+                address.setText(data[1]);
+                port.setText(data[2]);
+                bedienSprache = data[3];
+                nachSprache = data[4];
+                buttonSprache();
+            }
+        }
     }
 }
 
@@ -204,9 +266,9 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                         if(read.contains(":")){
                             String[] tmpString = read.split(":");
                             textArea.appendText("\n".concat(tmpString[0]));
-                            textArea.appendText(": ".concat(GoogleTranslate.translate(spracheNachFieldStr, tmpString[1])));
+                            textArea.appendText(": ".concat(GoogleTranslate.translate(nachSprache, tmpString[1])));
                         } else {
-                            textArea.appendText("\n".concat(GoogleTranslate.translate(spracheNachFieldStr, read)));
+                            textArea.appendText("\n".concat(GoogleTranslate.translate(nachSprache, read)));
                         }
                 }
             } catch (Exception e) {

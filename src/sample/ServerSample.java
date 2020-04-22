@@ -16,12 +16,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-public class ServerSample extends serverSettingsController{
+public class ServerSample{
 
     public static ServerSocket ss;
     public static Socket s;
@@ -29,7 +26,7 @@ public class ServerSample extends serverSettingsController{
     public static TextArea textArea;
     public static ArrayList<Socket> socketArrayList = new ArrayList<>();
 
-    public static final String NEW_CLIENT_MESSAGE = "Neuer Client Verbunden: ";
+    public static final String NEW_CLIENT_MESSAGE = "\nNeuer Client Verbunden: ";
 
     public TextField port;
     public TextField max_clients;
@@ -40,22 +37,41 @@ public class ServerSample extends serverSettingsController{
     public Button stopButton;
     public Button sendButton;
 
+    public String bedienSprache = "en";
+    public String nachSprache;
+
     public void buttonSprache() throws IOException {
-        startButtonClicked.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Start"));
-        sendFile.setText(GoogleTranslate.translate(spracheBeienFieldStr, "send File"));
-        stopButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Disconnect"));
-        send.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "Nachricht eingeben"));
-        max_clients.setPromptText(GoogleTranslate.translate(spracheBeienFieldStr, "Maximale Clients"));
-        sendButton.setText(GoogleTranslate.translate(spracheBeienFieldStr, "senden"));
-        if (portInt != 0) {
-            port.setText(String.valueOf(portInt));
-        }
-        if (anzahlClientsInt != 0) {
-            max_clients.setText(String.valueOf(anzahlClientsInt));
-        }
+        System.out.println("joooo " + bedienSprache);
+
+        startButtonClicked.setText(GoogleTranslate.translate(bedienSprache, "Start"));
+        sendFile.setText(GoogleTranslate.translate(bedienSprache, "send File"));
+        stopButton.setText(GoogleTranslate.translate(bedienSprache, "Disconnect"));
+        send.setPromptText(GoogleTranslate.translate(bedienSprache, "Nachricht eingeben"));
+        max_clients.setPromptText(GoogleTranslate.translate(bedienSprache, "Maximal Clients"));
+        sendButton.setText(GoogleTranslate.translate(bedienSprache, "send"));
     }
 
     public void initialize() throws IOException {
+
+
+
+        File log = new File("src/sample/data/ServerSettings/serverSettings.txt");
+        if(log.length() != 0){
+            BufferedReader br = new BufferedReader(new FileReader(log));
+            String[] lines = new String[4];
+            String[] data = new String[4];
+            for (int i = 0; i < 4; i++) {
+                lines[i] = br.readLine();
+                String[] tmpdata = lines[i].split(":");
+                data[i] = tmpdata[1];
+            }
+            br.close();
+            max_clients.setText(data[0]);
+            port.setText(data[1]);
+            bedienSprache = data[2];
+            nachSprache = data[3];
+        }
+
 
         textArea = new TextArea();
         borderPane.setCenter(textArea);
@@ -64,7 +80,7 @@ public class ServerSample extends serverSettingsController{
         textArea.setPrefWidth(borderPane.getCenter().getLayoutX());
         textArea.setEditable(false);
 
-        textArea.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Warte auf Eingabe ... "));
+        textArea.setText(GoogleTranslate.translate(bedienSprache, "Warte auf Eingabe ... "));
         buttonSprache();
     }
 
@@ -74,13 +90,13 @@ public class ServerSample extends serverSettingsController{
                 int tmpportInt = 0;
                 while(tmpportInt <= 1023){
                     final JPanel panel = new JPanel();
-                    String str = GoogleTranslate.translate(spracheBeienFieldStr, "Port ungültig");
-                    str.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Port"), "Port");
+                    String str = GoogleTranslate.translate(bedienSprache, "Port ungültig");
+                    str.replace(GoogleTranslate.translate(bedienSprache, "Port"), "Port");
                     JOptionPane.showMessageDialog(panel, str,
-                            GoogleTranslate.translate(spracheBeienFieldStr, "Warning"),
+                            GoogleTranslate.translate(bedienSprache, "Warning"),
                             JOptionPane.WARNING_MESSAGE);
-                    String str2 = GoogleTranslate.translate(spracheBeienFieldStr, "Bitte Port eingeben");
-                    str.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Port"), "Port");
+                    String str2 = GoogleTranslate.translate(bedienSprache, "Bitte Port eingeben");
+                    str.replace(GoogleTranslate.translate(bedienSprache, "Port"), "Port");
                     tmpportInt = Integer.parseInt(JOptionPane.showInputDialog(str2));
                 }
                 port.setText(String.valueOf(tmpportInt));
@@ -89,18 +105,18 @@ public class ServerSample extends serverSettingsController{
                 int tmpMaxClient = 0;
                 while(tmpMaxClient <= 0){
                     final JPanel panel = new JPanel();
-                    String str = GoogleTranslate.translate(spracheBeienFieldStr, "max. Clients ungültig");
-                    str.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Clients"), "Clients");
+                    String str = GoogleTranslate.translate(bedienSprache, "max. Clients ungültig");
+                    str.replace(GoogleTranslate.translate(bedienSprache, "Clients"), "Clients");
                     JOptionPane.showMessageDialog(panel, str,
-                            GoogleTranslate.translate(spracheBeienFieldStr, "Warning"),
+                            GoogleTranslate.translate(bedienSprache, "Warning"),
                             JOptionPane.WARNING_MESSAGE);
-                    String str2 = GoogleTranslate.translate(spracheBeienFieldStr, "Bitte max. Clients eingeben");
-                    str.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Clients"), "Clients");
+                    String str2 = GoogleTranslate.translate(bedienSprache, "Bitte max. Clients eingeben");
+                    str.replace(GoogleTranslate.translate(bedienSprache, "Clients"), "Clients");
                     tmpMaxClient = Integer.parseInt(JOptionPane.showInputDialog(str2));
                 }
             }
             ss =new ServerSocket(Integer.parseInt(port.getText()));
-            textArea.setText(GoogleTranslate.translate(spracheBeienFieldStr, "Server eingeschaltet\n"));
+            textArea.setText(GoogleTranslate.translate(bedienSprache, "Server eingeschaltet\n"));
             String[] args = new String[1];
             args[0] = max_clients.getText();
 
@@ -132,7 +148,7 @@ public class ServerSample extends serverSettingsController{
     public void sendClickedHandler(ActionEvent actionEvent) {
         try{
             textArea.appendText("\nServer: ".concat(GoogleTranslate.translate(
-                    spracheNachFieldStr, send.getText())));
+                    nachSprache, send.getText())));
             for (Socket socket: socketArrayList) {
                 String str = "Server: ".concat(send.getText());
                 writeMessage(socket, str);
@@ -152,7 +168,7 @@ public class ServerSample extends serverSettingsController{
         }
 
         Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
-                (spracheBeienFieldStr, "Pfad eingeben:")));
+                (nachSprache, "Pfad eingeben:")));
         Path fileName = pfad.getFileName();
 
         for (Socket socket: socketArrayList) {
@@ -174,7 +190,7 @@ public class ServerSample extends serverSettingsController{
             reader.close();
         }
         catch (Exception e) {
-            textArea.appendText(GoogleTranslate.translate(spracheBeienFieldStr, "Exception beim lesen: ") + pfad);
+            textArea.appendText(GoogleTranslate.translate(bedienSprache, "Exception beim lesen: ") + pfad);
             e.printStackTrace();
         }
     }
@@ -217,7 +233,7 @@ class RunnableWaitForClientsToJoin extends ServerSample implements java.lang.Run
             String[] stringI = new String[1];
             stringI[0] = Integer.toString(i);
             try {
-                textArea.appendText(GoogleTranslate.translate(spracheBeienFieldStr, "\n".concat(NEW_CLIENT_MESSAGE))
+                textArea.appendText(GoogleTranslate.translate(bedienSprache, "\n".concat(NEW_CLIENT_MESSAGE))
                         .concat(String.valueOf(i)));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -302,7 +318,7 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
                             reader.close();
                         }
                         catch (Exception e) {
-                            textArea.appendText(GoogleTranslate.translate(spracheBeienFieldStr, "Exception beim lesen: ") + pfadSenden);
+                            textArea.appendText(GoogleTranslate.translate(bedienSprache, "Exception beim lesen: ") + pfadSenden);
                             e.printStackTrace();
                         }
 
@@ -312,9 +328,9 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
                         if(read.contains(":")){
                             String[] tmpString = read.split(":");
                             textArea.appendText("\n".concat(tmpString[0]));
-                            textArea.appendText(": ".concat(GoogleTranslate.translate(spracheNachFieldStr, tmpString[1])));
+                            textArea.appendText(": ".concat(GoogleTranslate.translate(nachSprache, tmpString[1])));
                         } else {
-                            textArea.appendText("\n".concat(GoogleTranslate.translate(spracheNachFieldStr, read)));
+                            textArea.appendText("\n".concat(GoogleTranslate.translate(nachSprache, read)));
                         }
                         for (Socket so: socketArrayList) {
                             System.out.println("Server schreibt" + so);

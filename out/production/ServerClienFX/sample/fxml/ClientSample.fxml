@@ -55,7 +55,7 @@
    <right>
       <VBox prefHeight="200.0" prefWidth="190.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="benutzer" promptText="Benutzername">
+            <TextField fx:id="benutzer" promptText="Benutzername" onKeyReleased="#checkBenutzer">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
