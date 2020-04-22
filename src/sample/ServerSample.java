@@ -265,7 +265,7 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
                 switch (read){
                     case "DOWNLOAD_FILE":
                         Path fileName = Paths.get(readMessage(socket));
-                        Path pfad = Paths.get("C:\\Users\\Daniel Nagler\\Google Drive\\TFO 4BT\\Systeme_Netze\\ServerClientFX\\src\\sample\\data\\empfangeneDateien\\" + fileName);
+                        Path pfad = Paths.get("src/sample/data/ServerSettings/" + fileName);
                         System.out.println(pfad);
                         String str = readMessage(socket);
                         String[] line = str.split("#/noeiariga/");
@@ -281,16 +281,13 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
                             writer.close();
 
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            textArea.appendText(GoogleTranslate.translate(bedienSprache, "Fehler beim Empfangen der Datei."));
                         }
 
                         for (Socket so: socketArrayList) {
                             writeMessage(so, "DOWNLOAD_FILE");
                         }
-
                         Path pfadSenden = Paths.get(pfad.toString());
-                        Path fileNameSenden = pfadSenden.getFileName();
-
                         for (Socket so: socketArrayList) {
                             writeMessage(so, String.valueOf(fileName));
                         }
@@ -308,9 +305,11 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
                                 writeMessage(so, message);
                             }
                             reader.close();
+                            textArea.appendText("\n" + String.valueOf(pfadSenden.getFileName()));
+                            textArea.appendText(GoogleTranslate.translate(bedienSprache, " wurde gesendet"));
                         }
                         catch (Exception e) {
-                            textArea.appendText(GoogleTranslate.translate(bedienSprache, "Exception beim lesen: ") + pfadSenden);
+                            textArea.appendText("\n" + GoogleTranslate.translate(bedienSprache, "Exception beim lesen: ") + pfadSenden);
                             e.printStackTrace();
                         }
 

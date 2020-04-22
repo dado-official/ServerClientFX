@@ -13,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +153,15 @@ public class ClientSample{
         }
     }
 
+    private static String convertFromUtf8ToIso(String s1) {
+        if(s1 == null) {
+            return null;
+        }
+        String s = new String(s1.getBytes(StandardCharsets.UTF_8));
+        byte[] b = s.getBytes(StandardCharsets.ISO_8859_1);
+        return new String(b, StandardCharsets.ISO_8859_1);
+    }
+
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
         writeMessage(clientSockets.get(socketInt), "DOWNLOAD_FILE");
         Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
@@ -162,13 +173,17 @@ public class ClientSample{
         List<String> records = new ArrayList<String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(pfad)));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                records.add(line);
+            String lineUTF = null;
+            while ((lineUTF = reader.readLine()) != null) {
+                records.add(new String( lineUTF.getBytes("UTF-8"),"ANSI"));
             }
             String message = String.join("#/noeiariga/" , records);
-            writeMessage(clientSockets.get(socketInt), message);
+
+            writeMessage(clientSockets.get(socketInt), convertFromUtf8ToIso(message));
             reader.close();
+
+            clientTextArea.get(areaInt).appendText("\n" + fileName);
+            clientTextArea.get(areaInt).appendText(GoogleTranslate.translate(bedienSprache, "wurde gesendet"));
         }
         catch (Exception e) {
             String str = GoogleTranslate.translate(bedienSprache,
@@ -235,25 +250,32 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                     case "DOWNLOAD_FILE":
 
                         Path fileName = Paths.get(readMessage(socket));
-                        Path pfad = Paths.get("C:\\Users\\Daniel Nagler\\Google Drive\\TFO 4BT\\Systeme_Netze\\Server\\Client\\ServerClienFX\\src\\sample\\data\\empfangeneDateien\\" + fileName);
-                        System.out.println(pfad);
-                        String str = readMessage(socket);
-                        String[] line = str.split("#/noeiariga/");
+                        String savePath = JOptionPane.showInputDialog(GoogleTranslate.translate(bedienSprache, "Sie erhalten eine Datei." +
+                                "\nBitte Pfad eingeben wo die Datei gespeichert werden soll.\n" +
+                                "Falls die Datei nicht erwünscht ist, bitte Feld leer lassen und bestätigen."));
+                        if(savePath != null){
+                            Path pfad = Paths.get(savePath + "\\" + fileName);
+                            System.out.println(pfad);
+                            String str = readMessage(socket);
+                            String[] line = str.split("#/noeiariga/");
 
-                        try {
-                        File file = new File(String.valueOf(pfad));
+                            try {
+                                File file = new File(String.valueOf(pfad));
 
-                        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                        for (String s: line) {
-                            writer.write(s);
-                            writer.write("\n");
+                                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                                for (String s: line) {
+                                    writer.write(s);
+                                    writer.write("\n");
+                                }
+                                writer.close();
+                                textArea.appendText("\n" + GoogleTranslate.translate(nachSprache, "Datei empfangen"));
+
+                            } catch (IOException e) {
+                                textArea.appendText("\n" + GoogleTranslate.translate(nachSprache, "Fehler beim Empfangen der Datei."));
+                            }break;
+                        } else {
+                            textArea.appendText("\n" + GoogleTranslate.translate(nachSprache, "Datei nicht empfangen."));
                         }
-                        writer.close();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                        break;
 
                     default:
                         if(read.contains(":")){
