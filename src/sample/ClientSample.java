@@ -235,31 +235,24 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
                     case "DOWNLOAD_FILE":
 
                         Path fileName = Paths.get(readMessage(socket));
-                        Path pfad = Paths.get("C:\\Users\\Daniel Nagler\\Google Drive\\TFO 4BT\\Systeme_Netze\\Server\\Client\\ServerClienFX\\src\\sample\\data\\empfangeneDateien", String.valueOf(fileName));
+                        Path pfad = Paths.get("C:\\Users\\Daniel Nagler\\Google Drive\\TFO 4BT\\Systeme_Netze\\Server\\Client\\ServerClienFX\\src\\sample\\data\\empfangeneDateien\\" + fileName);
                         System.out.println(pfad);
                         String str = readMessage(socket);
                         String[] line = str.split("#/noeiariga/");
 
                         try {
-                            File file = new File(String.valueOf(pfad));
-                            if (file.createNewFile()) {
-                                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                                for (String s: line) {
-                                    writer.write(s);
-                                    writer.write("\n");
-                                }
-                                writer.close();
-                            } else {
-                                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-                                for (String s: line) {
-                                    writer.write(s);
-                                    writer.write("\n");
-                                }
-                                writer.close();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        File file = new File(String.valueOf(pfad));
+
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                        for (String s: line) {
+                            writer.write(s);
+                            writer.write("\n");
                         }
+                        writer.close();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                         break;
 
                     default:
