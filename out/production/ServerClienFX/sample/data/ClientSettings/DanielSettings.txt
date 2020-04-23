@@ -1,0 +1,5 @@
+benutzername:Daniel
+ip:localhost
+port:5555
+besprache:de
+nasprache:null

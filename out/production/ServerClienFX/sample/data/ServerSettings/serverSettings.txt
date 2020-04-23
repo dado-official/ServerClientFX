@@ -1,0 +1,4 @@
+anzClient:5
+port:5555
+besprache:de
+nasprache:de

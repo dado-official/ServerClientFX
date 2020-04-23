@@ -10,15 +10,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Commit">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Kommentare">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ClientSample.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ClientSample.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ListenToServerRunnable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClienFX/sample/ListenToServerRunnable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ClientSample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ClientSample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ServerSample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ServerSample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/clientSettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/clientSettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/serverSettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/serverSettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/empfangeneDateien/Faust.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/empfangeneDateien/Fkt_Primzahlen.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/empfangeneDateien/Fkt_add_rek.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/empfangeneDateien/Mappe.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/empfangeneDateien/Test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/empfangeneDateien/serverSettings.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/localeDateien/Fkt_add_rek.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/data/localeDateien/Test.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +117,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -236,7 +237,7 @@
       <workItem from="1587464984068" duration="5545000" />
       <workItem from="1587538904229" duration="4717000" />
       <workItem from="1587545240389" duration="12583000" />
-      <workItem from="1587627813876" duration="1859000" />
+      <workItem from="1587627813876" duration="3290000" />
     </task>
     <task id="LOCAL-00001" summary="Einstellungen ClientSample (clientSettings) +GoogleTranslatorBedienungen+ip+port+benutzername">
       <created>1587210179832</created>
@@ -280,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587564728623</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Kommentare">
+      <created>1587636315712</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1587636315713</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,7 +316,8 @@
     <MESSAGE value="Einstellungen werden in txt Datei gespeichert" />
     <MESSAGE value="Dateiensenden Pfadproblem gelöst" />
     <MESSAGE value="Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit" />
+    <MESSAGE value="Kommentare" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kommentare" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-3287" y="717" key="#Console" timestamp="1587388847065">
@@ -328,9 +337,10 @@
     </state>
     <state x="1086" y="414" width="388" height="758" key="#com.intellij.ide.util.MemberChooser/-3840.196.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587540210431" />
     <state x="1086" y="414" key="#com.intellij.ide.util.MemberChooser/-3840.709.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1585989448677" />
-    <state x="812" y="299" key="CommitChangelistDialog2" timestamp="1587564727976">
+    <state x="812" y="299" key="CommitChangelistDialog2" timestamp="1587636315119">
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
+    <state x="812" y="299" key="CommitChangelistDialog2/-3840.12.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587636315119" />
     <state x="812" y="299" key="CommitChangelistDialog2/-3840.196.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587564727976" />
     <state x="812" y="299" key="CommitChangelistDialog2/-3840.405.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587395705075" />
     <state x="812" y="299" key="CommitChangelistDialog2/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587210179131" />
@@ -338,9 +348,10 @@
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
     <state x="93" y="93" width="2375" height="1224" key="DiffContextDialog/-3840.196.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587544326594" />
-    <state x="1061" y="446" key="FileChooserDialogImpl" timestamp="1587041455740">
+    <state x="1061" y="446" key="FileChooserDialogImpl" timestamp="1587636969432">
       <screen x="0" y="0" width="2560" height="1409" />
     </state>
+    <state x="1061" y="446" key="FileChooserDialogImpl/-3840.12.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587636969432" />
     <state x="1061" y="446" key="FileChooserDialogImpl/-3840.534.1920.1057/0.0.2560.1409@0.0.2560.1409" timestamp="1587041455740" />
     <state width="1922" height="995" key="GridCell.Tab.0.bottom" timestamp="1587569135043">
       <screen x="0" y="0" width="2560" height="1409" />
