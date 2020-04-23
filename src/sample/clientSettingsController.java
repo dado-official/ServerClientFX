@@ -49,6 +49,8 @@ public class clientSettingsController {
     public Label spracheNa;
     public Menu help;
 
+
+    //Hilfefenster anzeigen
     public void showHelpClicked(ActionEvent actionEvent) throws IOException {
         final JPanel panel = new JPanel();
         String str = GoogleTranslate.translate(spracheBeienFieldStr, HELP_TEXT);
@@ -60,10 +62,13 @@ public class clientSettingsController {
         JOptionPane.showMessageDialog(panel, str, GoogleTranslate.translate(spracheBeienFieldStr, HELP), JOptionPane.INFORMATION_MESSAGE);
     }
 
+
     public void initialize() throws IOException {
+        //Methode um die Sprache zu wechseln wird aufgerufen
         changeLang();
     }
 
+    //Sprache aller bedienelemente tauschen
     public void changeLang() throws IOException {
         HELP_TEXT = GoogleTranslate.translate(spracheBeienFieldStr, HELP_TEXT);
         HELP_TEXT.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Port"), "Port");
@@ -93,6 +98,7 @@ public class clientSettingsController {
         infoUnten.setText(infoUnten.getText().replace(GoogleTranslate.translate(spracheBeienFieldStr, "null"), "null"));
     }
 
+    //Einstellungen werden in einer txt Datei gespeichert
     public void einstellungenSpeichernClicked(ActionEvent actionEvent) throws IOException {
         benutzername = benutzernameField.getText();
         ipAdress = ipAdresseField.getText();
@@ -141,7 +147,7 @@ public class clientSettingsController {
         bw.close();
     }
 
-
+    //einstellungsfenster verlassen
     public void zuruckClicked(ActionEvent actionEvent) throws IOException {
         MenuSample.benuUebergabe = benutzername;
         Parent root= FXMLLoader.load(getClass().getResource("/sample/fxml/ClientSample.fxml"));

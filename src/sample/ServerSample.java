@@ -40,6 +40,8 @@ public class ServerSample{
     public String bedienSprache = "en";
     public String nachSprache;
 
+
+    //Diese Methode stellt die Sprache der Buttons und der TexFelder ein
     public void buttonSprache() throws IOException {
         System.out.println("joooo " + bedienSprache);
 
@@ -51,12 +53,13 @@ public class ServerSample{
         sendButton.setText(GoogleTranslate.translate(bedienSprache, "send"));
     }
 
+    //Diese Methode initialisiert den Server, wenn schon einstellungen gamacht wurden werden sie importiert
     public void initialize() throws IOException {
-
 
 
         File log = new File("src/sample/data/ServerSettings/serverSettings.txt");
         if(log.length() != 0){
+            //Einstellungen importieren
             BufferedReader br = new BufferedReader(new FileReader(log));
             String[] lines = new String[4];
             String[] data = new String[4];
@@ -84,6 +87,7 @@ public class ServerSample{
         buttonSprache();
     }
 
+    //Eingaben überprüfen und dann Server Starten
     public void startClickedHandler(ActionEvent actionEvent) throws IOException {
         try{
             if(Integer.parseInt(port.getText()) < 1024 || Integer.parseInt(port.getText()) >  49151 ){
@@ -128,23 +132,25 @@ public class ServerSample{
     }
 
 
+    //Nachricht senden
     public static void writeMessage(Socket s, String nachricht) throws Exception {
         PrintWriter printWriter = new PrintWriter(s.getOutputStream(), true);
         printWriter.println(nachricht);
     }
 
+    //Auf Nachricht warten und dann lesen
     public static String readMessage(Socket s) throws Exception{
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(s.getInputStream()));
         return  bufferedReader.readLine();
     }
 
 
+    //Methode um Server zu stoppen (noch nicht fertig)
     public void stopClickedHandler(ActionEvent actionEvent) throws IOException {
-
         ss.close();
-
     }
 
+    //Methode um eine Nachricht die im TextFelt eingegeben wurde zu senden
     public void sendClickedHandler(ActionEvent actionEvent) {
         try{
             textArea.appendText("\nServer: ".concat(GoogleTranslate.translate(
@@ -161,6 +167,7 @@ public class ServerSample{
     }
 
 
+    //Methode um eine Datei zu senden
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
 
         for (Socket socket: socketArrayList) {
@@ -195,6 +202,7 @@ public class ServerSample{
         }
     }
 
+    //Ruft das Einstellungsfenster auf
     public void settingsHandler(ActionEvent actionEvent) throws IOException {
         Parent root= FXMLLoader.load(getClass().getResource("/sample/fxml/serverSettingsSample.fxml"));
         Scene scene=new Scene(root, 800, 500);
@@ -205,7 +213,7 @@ public class ServerSample{
     }
 }
 
-
+//Dieser Thread wartet darauf, dass sich neue Clients Verbinden
 class RunnableWaitForClientsToJoin extends ServerSample implements java.lang.Runnable{
 
     public static String[] stringII;
@@ -244,9 +252,8 @@ class RunnableWaitForClientsToJoin extends ServerSample implements java.lang.Run
     }
 }
 
-//Auf Nchricht vom Client warten
+//Auf Nchricht vom Client warten und sie dann an allen weiterschicken
 class RunnableServerListenToClient extends ServerSample implements java.lang.Runnable {
-
 
     public static void main(String[] args) {
 
@@ -263,6 +270,7 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
                 String read = readMessage(socket);
 
                 switch (read){
+                    //datei empfangen und weiterschicken
                     case "DOWNLOAD_FILE":
                         Path fileName = Paths.get(readMessage(socket));
                         Path pfad = Paths.get("src/sample/data/ServerSettings/" + fileName);
@@ -316,6 +324,7 @@ class RunnableServerListenToClient extends ServerSample implements java.lang.Run
 
                         break;
                     default:
+                        //Normale nachricht empfangen und an allen weiterschicken
                         if(read.contains(":")){
                             String[] tmpString = read.split(":");
                             textArea.appendText("\n".concat(tmpString[0]));

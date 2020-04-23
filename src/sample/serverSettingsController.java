@@ -44,12 +44,14 @@ public class serverSettingsController {
     public Button save;
     public Label infoUnten;
 
+    //Hilfefenster wird angezeigt
     public void showHelpClicked(ActionEvent actionEvent) {
         final JPanel panel = new JPanel();
         JOptionPane.showMessageDialog(panel, HELP_TEXT,
                 HELP, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    //Falls schon einstellungen gespeichert sind werden sie importiert
     public void initialize() throws IOException {
         File log = new File("src/sample/data/ServerSettings/serverSettings.txt");
         if(log.length() != 0){
@@ -68,9 +70,11 @@ public class serverSettingsController {
             spracheNachFeld.setText(data[3]);
             spracheBeienFieldStr = data[2];
         }
+        //Methode um die Sprache zu wechseln wird aufgerufen
         changeLang();
     }
 
+    //Die Sprache aller Elemente wird getauscht
     public void changeLang() throws IOException {
         HELP_TEXT = GoogleTranslate.translate(spracheBeienFieldStr, HELP_TEXT);
         HELP_TEXT.replace(GoogleTranslate.translate(spracheBeienFieldStr, "Port"), "Port");
@@ -101,6 +105,7 @@ public class serverSettingsController {
 
     }
 
+    //Einstellungn werden in einer .txt Datei gespeichert
     public void einstellungenSpeichernClicked(ActionEvent actionEvent) throws IOException {
         if(!anzahlClients.getText().equals("")){
             if(Integer.parseInt(anzahlClients.getText()) <= 0 || Integer.parseInt(anzahlClients.getText()) > 50){
@@ -124,7 +129,6 @@ public class serverSettingsController {
             spracheBedienFeld.setText(spracheBeienFieldStr);
             System.out.println(spracheBeienFieldStr);
             changeLang();
-            System.out.println("dailo = "+ spracheBeienFieldStr);
         }
 
         if(!str.contains(spracheNachFeld.getText())) {
@@ -158,7 +162,7 @@ public class serverSettingsController {
         bw.close();
     }
 
-
+    //Einstellungen verlassen
     public void zuruckClicked(ActionEvent actionEvent) throws IOException {
         Parent root= FXMLLoader.load(getClass().getResource("/sample/fxml/ServerSample.fxml"));
         Scene scene=new Scene(root, 800, 500);
@@ -166,11 +170,6 @@ public class serverSettingsController {
         root.requestFocus();
         MenuSample.serverStage.setScene(scene);
         MenuSample.serverStage.show();
-    }
-
-    public String getSpracheBeienFieldStr() {
-        System.out.println("chilo: "+ spracheBeienFieldStr);
-        return spracheBeienFieldStr;
     }
 
     public void setSpracheBeienFieldStr(String spracheBeienFieldStr) {

@@ -50,6 +50,7 @@ public class ClientSample{
 
 
 
+    //Diese Methode stellt die Sprache der Buttons und der TexFelder ein
     public void buttonSprache() throws IOException {
         System.out.println(bedienSprache);
         connechtButton.setText(GoogleTranslate.translate(bedienSprache, "Connect"));
@@ -63,12 +64,13 @@ public class ClientSample{
 
 
 
+    //Diese Methode initialisiert den Client, wenn er in den Einstellungen Werte eingetragen hat so werden diese importiert
     public void initialize() throws IOException {
-
         benuUeber = MenuSample.benuUebergabe;
         MenuSample.benuUebergabe = null;
         System.out.println("init: " + benuUeber);
 
+        //Überprüfung ob Werte in den Einstellungen eingetragen wurden
         if (benuUeber != null){
             System.out.println(benuUeber);
             File log = new File("src/sample/data/ClientSettings/" + benuUeber + "Settings.txt");
@@ -87,6 +89,7 @@ public class ClientSample{
             bedienSprache = data[3];
             nachSprache = data[4];
         } else {
+            //Alle Dateinamen im Ordner "ClientSettings" in lostOfFiles speichern
             File folder = new File("src/sample/data/ClientSettings");
             listOfFiles = folder.listFiles();
 
@@ -110,6 +113,7 @@ public class ClientSample{
         buttonSprache();
     }
 
+    //Handler vom Connectbuttones werden Port und IP überprüft und dann mit dem Server verbunden
     public void connectClickedHandler(ActionEvent actionEvent) throws IOException {
         try{
             clientSockets.add(new Socket(address.getText(),Integer.parseInt(port.getText())));
@@ -126,26 +130,27 @@ public class ClientSample{
         }
     }
 
+    //Methode um eine Nachricht zu schreiben
     public static void writeMessage(Socket s2, String nachricht) throws Exception {
         PrintWriter printWriter = new PrintWriter(s2.getOutputStream(), true);
         printWriter.println(nachricht);
     }
 
+    //Methode um auf eine Nachricht zu warten und zu sie anschließend zu lesen
     public static String readMessage(Socket s2) throws Exception{
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(s2.getInputStream()));
         return bufferedReader.readLine();
     }
 
+    //Mehode um den eingegebenenString zu senden
     public void sendClickedHandler(ActionEvent actionEvent) {
         try{
             if(benutzer.getText().equals("")){
                 String str = "Client: ".concat(send.getText());
                 writeMessage(clientSockets.get(socketInt), str);
-                System.out.println("WriteClient");
             } else {
                 String str = benutzer.getText().concat(": ".concat(send.getText()));
                 writeMessage(clientSockets.get(socketInt), str);
-                System.out.println("WriteName");
             }
             send.setText("");
         }catch (Exception e){
@@ -153,15 +158,14 @@ public class ClientSample{
         }
     }
 
-    private static String convertFromUtf8ToIso(String s1) {
-        if(s1 == null) {
-            return null;
-        }
-        String s = new String(s1.getBytes(StandardCharsets.UTF_8));
-        byte[] b = s.getBytes(StandardCharsets.ISO_8859_1);
-        return new String(b, StandardCharsets.ISO_8859_1);
-    }
+    /*
+    Mathode um Dateien zu senden
+    1) dem Server wird "DOWNLOAD_FILE" gesendet so erkennt er dass eine Datei kommt
+    2) der Dateiname wird gesendet
+    3) die Datei wird in einem String gespeichert und gesendet
 
+    Beim sender von Dateien mit Sonderzeichen gibt es noch Probleme weil sie werden irgendwie in ASCII umgewandelt
+     */
     public void dataSendClickedHandler(ActionEvent actionEvent) throws Exception {
         writeMessage(clientSockets.get(socketInt), "DOWNLOAD_FILE");
         Path pfad = Paths.get(JOptionPane.showInputDialog(GoogleTranslate.translate
@@ -175,11 +179,11 @@ public class ClientSample{
             BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(pfad)));
             String lineUTF = null;
             while ((lineUTF = reader.readLine()) != null) {
-                records.add(new String( lineUTF.getBytes("UTF-8"),"ANSI"));
+                records.add(lineUTF);
             }
             String message = String.join("#/noeiariga/" , records);
 
-            writeMessage(clientSockets.get(socketInt), convertFromUtf8ToIso(message));
+            writeMessage(clientSockets.get(socketInt), message);
             reader.close();
 
             clientTextArea.get(areaInt).appendText("\n" + fileName);
@@ -193,7 +197,7 @@ public class ClientSample{
         }
     }
 
-
+    // Wenn der Benutzer auf dem EinstellungsButton klickt
     public void settingsHandler(ActionEvent actionEvent) throws IOException {
         Parent root=FXMLLoader.load(getClass().getResource("/sample/fxml/clientSettingsSample.fxml"));
         Scene scene=new Scene(root, 800, 500);
@@ -203,6 +207,11 @@ public class ClientSample{
         MenuSample.clientStage.show();
 
     }
+
+    /*
+    Diese Methode überprüft ob der eingegebene Benutzername schon gespeicherte Einstellungen hat.
+    Falls schon dann werden diese importiert
+     */
 
     public void checkBenutzer(KeyEvent keyEvent) throws IOException {
         for (File f: listOfFiles) {
@@ -229,7 +238,7 @@ public class ClientSample{
 }
 
 
-//Auf Nchricht vom Server warten
+//Dieser Thread wartet auf Nachrichten vom Server
 class ListenToServerRunnable extends ClientSample implements java.lang.Runnable {
     public static Thread listenToServerThread;
     public static void main(String[] args) {
@@ -246,13 +255,15 @@ class ListenToServerRunnable extends ClientSample implements java.lang.Runnable 
             try {
                 String read = readMessage(socket);
                 System.out.println(socket + " bekommen: " + read);
+
+                // Falls "DOWNLOAD_FILE" dann kommt eine Datei und keine Nachricht
                 switch (read){
                     case "DOWNLOAD_FILE":
 
                         Path fileName = Paths.get(readMessage(socket));
                         String savePath = JOptionPane.showInputDialog(GoogleTranslate.translate(bedienSprache, "Sie erhalten eine Datei." +
                                 "\nBitte Pfad eingeben wo die Datei gespeichert werden soll.\n" +
-                                "Falls die Datei nicht erwünscht ist, bitte Feld leer lassen und bestätigen."));
+                                "Falls die Datei nicht erw?nscht ist, bitte Feld leer lassen und best?tigen."));
                         if(savePath != null){
                             Path pfad = Paths.get(savePath + "\\" + fileName);
                             System.out.println(pfad);
